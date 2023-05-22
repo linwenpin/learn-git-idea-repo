@@ -49,4 +49,10 @@ public interface UserMapper {
     public List<Resource> findResourceByRoleIds(List<Integer> roleIds);
     
     public List<Resource> findResourceByRoleIds2(List<Integer> roleIds);
+    
+    public void test1();
+    public void test2();
+    public void test3();
+    public void test4();
+    public void test5();
 }
