@@ -55,4 +55,10 @@ public interface UserMapper {
     public void test3();
     public void test4();
     public void test5();
+
+    public void test11();
+    public void test21();
+    public void test31();
+    public void test41();
+    public void test51();
 }
