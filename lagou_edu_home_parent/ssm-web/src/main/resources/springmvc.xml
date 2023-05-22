@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 启动组件扫描 -->
+    <context:component-scan base-package="com.lagou.controller"/>
+
+    <!-- mvc注解增强：显示配置处理器映射器和处理器适配器，以及功能增强：JSON读写（@RequestBody @ResponseBody注解） -->
+    <mvc:annotation-driven/>
+
+    <!-- 视图解析器, 这个项目中采用前后端分离架构，所有暂时不需要使用视图解析器，因为不用进行页面跳转 -->
+
+    <!-- 放行静态资源 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 5. 配置文件上传解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1048576"/>
+    </bean>
+
+</beans>

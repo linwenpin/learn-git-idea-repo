@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans.xsd
+       	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       	">
+
+    <!-- Spring整合MyBatis -->
+    <!-- 加载properties配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!-- 配置sqlSessionFactory: 替代MyBatis核心配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.lagou.domain"/>
+        <!-- 配置插件 -->
+        <property name="plugins">
+            <array>
+                <!-- PageHelper-->
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>helperDialect=mysql</value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+        <!-- 加载MyBatis核心配置文件 -->
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+    </bean>
+
+    <!-- 配置Mapper扫描：创建接口代理对象，并存入IOC容器 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.lagou.dao"/>
+    </bean>
+
+</beans>
