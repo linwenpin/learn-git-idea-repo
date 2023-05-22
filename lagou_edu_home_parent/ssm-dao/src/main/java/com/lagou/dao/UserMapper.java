@@ -47,4 +47,6 @@ public interface UserMapper {
      * 根据角色ID集合，查询对应的所有资源
      */
     public List<Resource> findResourceByRoleIds(List<Integer> roleIds);
+    
+    public List<Resource> findResourceByRoleIds2(List<Integer> roleIds);
 }
